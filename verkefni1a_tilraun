@@ -1,0 +1,48 @@
+import numpy as np
+
+data=np.load('docmatrix.npz')
+X=data['X']
+y=data['y']
+terms=data['terms']
+y[y==3]=-1
+y[y==2]=-1
+n=X.shape[0]
+rnd=np.random.permutation(n) # Slembin umröðun talnanna 1,...,n
+nfrac=0.7 # Hlutfall gagna sem er notað til þjálfunar
+nfrac1=0.3
+ypred=np.sign(np.dot(A,theta))
+xpred=np.sign(np.dot(A,theta))
+n_train=int(nfrac*n)
+n_test=int(nfrac1*n)
+x_train=X[rnd[0:n_train],:]
+y_train=y[rnd[0:n_train]]
+x_test=X[rnd[n_train:],:]
+y_test=y[rnd[n_train:]]
+def rms(x_train):
+    return np.linalg.norm(x_train)/np.sqrt(len(x_train))
+def rms(x_test):
+    return np.linalg.norm(x_test)/np.sqrt(len(x_test))
+def rms(y_train):
+    return np.linalg.norm(y_train)/np.sqrt(len(y_train))
+def rms(y_test):
+    return np.linalg.norm(y_test)/np.sqrt(len(y_test))
+A = np.c_[np.ones(n_test), x_test]
+B = np.c_[np.ones(n_train), x_train]
+A1 = np.c_[np.ones(n_test), y_test]
+B1 = np.c_[np.ones(n_train), y_train]
+theta,res,rank,_ = np.linalg.lstsq(A, y_test, rcond=False)
+theta1,res1,rank1,_ = np.linalg.lstsq(B, y_train, rcond=False)
+theta2,res2,rank2,_ = np.linalg.lstsq(A1, x_test, rcond=False)
+theta3,res3,rank3,_ = np.linalg.lstsq(B1, x_train, rcond=False)
+print("theta:", theta)
+print("theta:", theta1)
+print("theta:", theta2)
+print("theta:", theta3)
+print(np.sum(y_train != ypred)/n_test)
+print(np.sum(y_test != ypred)/n_train)
+print(np.sum(x_train != xpred)/n_test)
+print(np.sum(x_test != xpred)/n_train)
+#print("theta:", theta) # Ekki sömu gildi og í bók
+#print("RMS skekkja: {:10.4f}".format(np.linalg.norm(y - np.dot(A,theta))/np.sqrt(n_train)))
+#print("X_train:", x_train.shape)
+#print("X_test:", x_test.shape)
