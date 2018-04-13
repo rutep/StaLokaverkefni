@@ -1,0 +1,27 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+data=np.load('mnist_small.npz')
+x_train=data['x_train']
+y_train=data['y_train']
+x_test=data['x_test']
+y_test=data['y_test']
+n_train = len(y_train)
+n_test = len(y_test)
+ypred=np.sign(np.dot(A,theta))
+xpred=np.sign(np.dot(A,theta))
+print(x_train.shape)
+print(x_test.shape)
+    
+#def rms(u):
+   # return np.linalg.norm(u)/np.sqrt(len(u))
+for k in range(10):
+    y[y==1]=0 
+    y[y!=1]=-1
+    
+print(np.sum(y_train != ypred)/n_test)
+print(np.sum(y_test != ypred)/n_train)
+print(np.sum(x_train != xpred)/n_test)
+print(np.sum(x_test != xpred)/n_train)
+plt.imshow(x_train[0,:].reshape(28,28),cmap='Greys') # Fyrsta myndin í þjálfunargögnunum
+plt.show()
