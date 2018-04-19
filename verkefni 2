@@ -1,0 +1,55 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+data=np.load('mnist_small.npz')
+x_train=data['x_train']
+y_train=data['y_train']
+x_test=data['x_test']
+y_test=data['y_test']
+n_train = len(y_train)
+n_test = len(y_test)
+print(x_train.shape)
+print(x_test.shape)
+A_train = np.c_[np.ones(n_train), x_train]
+A_test = np.c_[np.ones(n_test), x_test]
+theta,res,rank,_ = np.linalg.lstsq(A_train, y_train, rcond=False)
+#theta1,res,rank,_ = np.linalg.lstsq(A_test, y_test, rcond=False)
+ypred_train=np.sign(np.dot(A_train,theta))
+ypred_test=np.sign(np.dot(A_test,theta))
+#búa til fall sem flokkar eftir tölu, ef það er jafnt og talan að þá er það 1 annars -1  def prof()  
+#fall sem maður getur síðan kallað á til að ka
+#eins og í a-lið í 1 nema 10 sinnum
+def prof(y)
+y_test[y_test==0]=1 
+y_test[y_test!=1]=-1
+y_train[y_train==0]=1 
+y_train[y_train!=1]=-1
+
+#fyrir a -lið 
+for k in range(3):
+    print("þegar K = 3:")
+    print(np.sum(y_train != ypred_train)/n_train)
+    print(np.sum(y_test != ypred_test)/n_test)
+
+for k in range(10):
+    print("þegar K = 10:")
+    print(np.sum(y_train != ypred_train)/n_train)
+    print(np.sum(y_test != ypred_test)/n_test)
+
+#í b-lið
+#gera 10*10 confusion matrix eins og töflu í bók 
+
+#í c-lið
+#for q in [100, 500] q = 100 R100*784 R = -1,1,.... y=100x=784 randint =-1,1 for loopa ef R = 0 þá er R = 1
+# líka hægt að prufa: R = np.random.randint(-1,1, size=(q, 784)) - sem ég var búin að reyna, ef það er ekki út í hött
+for q in range(100, 1000):
+    R = np.random.randint(-1,1, size=(784))
+    b = np.zeros(())    
+    R[R==0]=1
+print(R)
+for q in range(5000, 10000):
+    R[R==0]=1
+print(R)
+
+plt.imshow(x_train[0,:].reshape(28,28),cmap='Greys') # Fyrsta myndin í þjálfunargögnunum
+plt.show()

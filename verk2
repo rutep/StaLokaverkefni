@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+data=np.load('mnist_small.npz')
+x_train=data['x_train']
+y_train=data['y_train']
+x_test=data['x_test']
+y_test=data['y_test']
+n_train = len(y_train)
+n_test = len(y_test)
+ypred=np.sign(np.dot(A,theta))
+xpred=np.sign(np.dot(A,theta))
+print(x_train.shape)
+print(x_test.shape)
+for k in range(10):
+    y_test[y_test==1]=0 
+    y_test[y_test!=1]=-1
+    y_train[y_train==1]=0 
+    y_train[y_train!=1]=-1
+
+
+maxi = np.maximum
+q = 100
+q1 = 1000
+q2 = 5000
+q3 = 10000
+R = np.random.randint(-1,1,q)
+R1 = np.random.randint(-1,1,q1)
+R2 = np.random.randint(-1,1,q2)
+R3 = np.random.randint(-1,1,q3)
+print(R)
+print(np.sum(y_train != ypred)/n_test)
+print(np.sum(y_test != ypred)/n_train)
+print(np.sum(x_train != xpred)/n_test)
+print(np.sum(x_test != xpred)/n_train)
+plt.imshow(x_train[0,:].reshape(28,28),cmap='Greys') # Fyrsta myndin í þjálfunargögnunum
+plt.show()
